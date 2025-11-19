@@ -1,0 +1,52 @@
+# DATOS -------------------------------------------------------------------
+barrios <-st_read("E:/R_VCS")
+barrios <- barrios |> 
+  mutate(C_BARRIO = as.numeric(C_BARRIO),
+         NOMBRE = c("Neighborhood 1","Neighborhood 2","Neighborhood 3",
+                    "Neighborhood 4","Neighborhood 5","Neighborhood 6",
+                    "Neighborhood 7","Neighborhood 8"))
+datos_finales <- read_csv("E:/R_VCS")
+datos_finales <- datos_finales |> 
+  mutate(C_BARRIO = c(1,2,3,4,5,6,7,8))
+barrios <- inner_join(barrios,datos_finales, by = join_by(C_BARRIO == C_BARRIO))
+barrios <- barrios |> 
+  select(C_BARRIO,NOMBRE,valorz)
+variables <- read_excel("E:/E:/R_VCS",
+                        sheet = "Data_Ciudad virtual")
+barrios <- inner_join(barrios, variables, by = join_by(C_BARRIO == CODI_BARRI))
+i1 <- "Indicator 1: Population: density (Inh./km2)"
+i2 <- "Indicator 2: Immigration: percentage of population (%)"
+i3 <- "Indicator 3: Gender condition: percentage of femininity (%)"
+i4 <- "Indicator 4: Age extremes: percentage of population (%)"
+i5 <- "Indicator 5: Disabilities: percentage of population (%)"
+i6 <- "Indicator 6: Social assistance dependency: percentage of population (%)"
+i7 <- "Indicator 7: Population with low level of education: percentage of population (%)"
+i8 <- "Indicator 8: Resilience measures: Accessibility to social infrastructure for community participation (Number):"
+i9 <- "Indicator 9: Economic activity: By type: Industry, energy and equipment (number/km²)"
+i10 <- "Indicator 10: Service Activity: By type: Economic, health and educational services (number/km²)"
+i11 <- "Indicator 11: Commercial activity: By type: Supermarkets, restaurants and petrol stations (number/km²)"
+i12 <- "Indicator 12: Income per person (€/person*year)"
+i13 <- "Indicator 13: Active workers: percentage of population (%)"
+i14 <- "Indicator 14: Below-average income: level per person, Very low(5), low(4), medium-low(3), moderately low (2), slightly low(1)"
+i15 <- "Indicator 15: Subsurface buildings with economic activity: density (number/km²)"
+i16 <- "Indicator 16: Average prices: (€/m² useful)"
+i17 <- "Indicator 17: Insurance: homes with insurance (%)"
+i18 <- "Indicator 18: Financial capacity municipal: Access to financial resources for recovery (€/project)"
+i19 <- "Indicator 19: Total green areas: (m²/inh)"
+i20 <- "Indicator 20: Tree species: (number)"
+i21 <- "Indicator 21: Open space system: area of squares, parks and urban gardens (m²/inh)"
+i22 <- "Indicator 22: Spaces with permeability deficit: compact areas (m²/inh)"
+i23 <- "Indicator 23: Areas with a deficit of vegetation: areas with little presence of urban trees (m²/inh)"
+i24 <- "Indicator 24: Species richness: relative Habitat Richness Index (number of habitats)"
+i25 <- "Indicator 25: Protected natural areas and green infrastructure capacity: Protected natural areas and extension of nature-based solutions (m²/inh):"
+i26 <- "Indicator 26: Specific plans: (number)"
+i27 <- "Indicator 27: Urban context: density of the built environment (km/km²)"
+i28 <- "Indicator 28: Urban service: (Km network/km²)"
+i29 <- "Indicator 29: Road infrastructure: parking, rail system and streets (%)"
+i30 <- "Indicator 30: Subsurface buildings: (km/km²)"
+i31 <- "Indicator 31: Building condition: Very low(5), low(4), medium-low(3), moderately low (2), slightly low(1)"
+i32 <- "Indicator 32: Cultural heritage sites: (number)"
+i33 <- "Indicator 33: Water infrastructure condition for drainage system: system failure frequency (number/year):"
+i34 <- "Indicator 34: Deficient drainage network: (%)"
+i35 <- "Indicator 35: Structural protection measures: (km/km²)"
+i36 <- "Indicator 36: Urbanization plans and projects: (number)"
