@@ -1,0 +1,578 @@
+# CONFIGURACIÓN DEL SERVIDOR ------------------------------------------------------
+server <- function(input, output, session) {
+  session <- getDefaultReactiveDomain()
+  observe({
+    if (is.null(session)) return()
+    total <- input$pd1 + input$pd2 + input$pd3 + input$pd4
+    is_valid <- abs(total - 1) < 1e-6  
+
+    lapply(c("pd1", "pd2", "pd3", "pd4"), function(id) {
+      feedbackWarning(
+        inputId = id,
+      )
+    })
+  })
+    
+  check_and_feedback <- function(prefix, count, tol = 1e-6) {
+    ids <- paste0(prefix, 1:count)
+    values <- sapply(ids, function(id) input[[id]])
+    sum_weights <- sum(values, na.rm = TRUE)
+    valid <- abs(sum_weights - 1) < tol
+    
+    lapply(ids, function(id) {
+      feedbackWarning(
+        inputId = id,
+        show = !valid,
+        text = sprintf("total1 (currently: %.2f)", sum_weights)
+      )
+    })
+  }
+  
+  observe({ check_and_feedback("ps", 8) })  
+  observe({ check_and_feedback("pe", 10) }) 
+  observe({ check_and_feedback("pa", 8) })  
+  observe({ check_and_feedback("pf", 10) }) 
+  
+  indicador1 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I1, input$B2I1, input$B3I1, input$B4I1,
+                                       input$B5I1, input$B6I1, input$B7I1, input$B8I1))
+    return(indicador_numerico)
+  })
+  
+  zcore1 <- reactive({
+    media <- mean(indicador1())
+    ds <- sd(indicador1())
+    zscore <- (indicador1() - media)/ ds
+    zredondeado = transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador2 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I2, input$B2I2, input$B3I2, input$B4I2,
+                                       input$B5I2, input$B6I2, input$B7I2, input$B8I2))
+    return(indicador_numerico)
+  })
+  
+  zcore2 <- reactive({
+    media <- mean(indicador2())
+    ds <- sd(indicador2())
+    zscore <- (indicador2() - media)/ ds
+    zredondeado = transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador3 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I3, input$B2I3, input$B3I3, input$B4I3,
+                                       input$B5I3, input$B6I3, input$B7I3, input$B8I3))
+  })
+  
+  zcore3 <- reactive({
+    media <- mean(indicador3())
+    ds <- sd(indicador3())
+    zscore <- (indicador3() - media)/ ds
+    zredondeado = transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador4 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I4, input$B2I4, input$B3I4, input$B4I4,
+                                       input$B5I4, input$B6I4, input$B7I4, input$B8I4))
+  })
+  
+  zcore4 <- reactive({
+    media <- mean(indicador4())
+    ds <- sd(indicador4())
+    zscore <- (indicador4() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador5 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I5, input$B2I5, input$B3I5, input$B4I5,
+                                       input$B5I5, input$B6I5, input$B7I5, input$B8I5))
+  })
+  
+  zcore5 <- reactive({
+    media <- mean(indicador5())
+    ds <- sd(indicador5())
+    zscore <- (indicador5() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador6 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I6, input$B2I6, input$B3I6, input$B4I6,
+                                       input$B5I6, input$B6I6, input$B7I6, input$B8I6))
+  })
+  
+  zcore6 <- reactive({
+    media <- mean(indicador6())
+    ds <- sd(indicador6())
+    zscore <- (indicador6() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador7 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I7, input$B2I7, input$B3I7, input$B4I7,
+                                       input$B5I7, input$B6I7, input$B7I7, input$B8I7))
+  })
+  
+  zcore7 <- reactive({
+    media <- mean(indicador7())
+    ds <- sd(indicador7())
+    zscore <- (indicador7() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador8 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I8, input$B2I8, input$B3I8, input$B4I8,
+                                       input$B5I8, input$B6I8, input$B7I8, input$B8I8))
+  })
+  
+  zcore8 <- reactive({
+    media <- mean(indicador8())
+    ds <- sd(indicador8())
+    zscore <- (indicador8() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador9 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I9, input$B2I9, input$B3I9, input$B4I9,
+                                       input$B5I9, input$B6I9, input$B7I9, input$B8I9))
+  })
+  
+  zcore9 <- reactive({
+    media <- mean(indicador9())
+    ds <- sd(indicador9())
+    zscore <- (indicador9() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador10 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I10, input$B2I10, input$B3I10, input$B4I10,
+                                       input$B5I10, input$B6I10, input$B7I10, input$B8I10))
+  })
+  
+  zcore10 <- reactive({
+    media <- mean(indicador10())
+    ds <- sd(indicador10())
+    zscore <- (indicador10() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador11 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I11, input$B2I11, input$B3I11, input$B4I11,
+                                       input$B5I11, input$B6I11, input$B7I11, input$B8I11))
+  })
+  
+  zcore11 <- reactive({
+    media <- mean(indicador11())
+    ds <- sd(indicador11())
+    zscore <- (indicador11() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })
+  
+  indicador12 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I12, input$B2I12, input$B3I12, input$B4I12,
+                                       input$B5I12, input$B6I12, input$B7I12, input$B8I12))
+  })
+  
+  zcore12 <- reactive({
+    media <- mean(indicador12())
+    ds <- sd(indicador12())
+    zscore <- (indicador12() - media)/ ds
+    zredondeado <- pnorm(zscore, mean(zscore), sd(zscore))
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador13 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I13, input$B2I13, input$B3I13, input$B4I13,
+                                       input$B5I13, input$B6I13, input$B7I13, input$B8I13))
+  })
+  
+  zcore13 <- reactive({
+    media <- mean(indicador13())
+    ds <- sd(indicador13())
+    zscore <- (indicador13() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador14 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I14, input$B2I14, input$B3I14, input$B4I14,
+                                       input$B5I14, input$B6I14, input$B7I14, input$B8I14))
+  })
+  
+  zcore14 <- reactive({
+    media <- mean(indicador14())
+    ds <- sd(indicador14())
+    zscore <- (indicador14() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador15 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I15, input$B2I15, input$B3I15, input$B4I15,
+                                       input$B5I15, input$B6I15, input$B7I15, input$B8I15))
+  })
+  
+  zcore15 <- reactive({
+    media <- mean(indicador15())
+    ds <- sd(indicador15())
+    zscore <- (indicador15() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador16 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I16, input$B2I16, input$B3I16, input$B4I16,
+                                       input$B5I16, input$B6I16, input$B7I16, input$B8I16))
+  })
+  
+  zcore16 <- reactive({
+    media <- mean(indicador16())
+    ds <- sd(indicador16())
+    zscore <- (indicador16() - media)/ ds
+    zredondeado <- round(transform(zscore, method = 'minmax'), 3)
+    return(zredondeado)
+  })    
+  
+  indicador17 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I17, input$B2I17, input$B3I17, input$B4I17,
+                                       input$B5I17, input$B6I17, input$B7I17, input$B8I17))
+  })
+  
+  zcore17 <- reactive({
+    media <- mean(indicador17())
+    ds <- sd(indicador17())
+    zscore <- (indicador17() - media)/ ds
+    zredondeado <- round(transform(zscore, method = 'minmax'), 3)
+    return(zredondeado)
+  })    
+  
+  indicador18 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I18, input$B2I18, input$B3I18, input$B4I18,
+                                       input$B5I18, input$B6I18, input$B7I18, input$B8I18))
+  })
+  
+  zcore18 <- reactive({
+    media <- mean(indicador18())
+    ds <- sd(indicador18())
+    zscore <- (indicador18() - media)/ ds
+    zredondeado <- round(transform(zscore, method = 'minmax'), 3)
+    return(zredondeado)
+  })    
+  
+  indicador19 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I19, input$B2I19, input$B3I19, input$B4I19,
+                                       input$B5I19, input$B6I19, input$B7I19, input$B8I19))
+  })
+  
+  zcore19 <- reactive({
+    media <- mean(indicador19())
+    ds <- sd(indicador19())
+    zscore <- (indicador19() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador20 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I20, input$B2I20, input$B3I20, input$B4I20,
+                                       input$B5I20, input$B6I20, input$B7I20, input$B8I20))
+  })
+  
+  zcore20 <- reactive({
+    media <- mean(indicador20())
+    ds <- sd(indicador20())
+    zscore <- (indicador20() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  
+  indicador21 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I21, input$B2I21, input$B3I21, input$B4I21,
+                                       input$B5I21, input$B6I21, input$B7I21, input$B8I21))
+  })
+  
+  zcore21 <- reactive({
+    media <- mean(indicador21())
+    ds <- sd(indicador21())
+    zscore <- (indicador21() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador22 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I22, input$B2I22, input$B3I22, input$B4I22,
+                                       input$B5I22, input$B6I22, input$B7I22, input$B8I22))
+  })
+  
+  zcore22 <- reactive({
+    media <- mean(indicador22())
+    ds <- sd(indicador22())
+    zscore <- (indicador22() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador23 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I23, input$B2I23, input$B3I23, input$B4I23,
+                                       input$B5I23, input$B6I23, input$B7I23, input$B8I23))
+  })
+  
+  zcore23 <- reactive({
+    media <- mean(indicador23())
+    ds <- sd(indicador23())
+    zscore <- (indicador23() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador24 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I24, input$B2I24, input$B3I24, input$B4I24,
+                                       input$B5I24, input$B6I24, input$B7I24, input$B8I24))
+  })
+  
+  zcore24 <- reactive({
+    media <- mean(indicador24())
+    ds <- sd(indicador24())
+    zscore <- (indicador24() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador25 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I25, input$B2I25, input$B3I25, input$B4I25,
+                                       input$B5I25, input$B6I25, input$B7I25, input$B8I25))
+  })
+  
+  zcore25 <- reactive({
+    media <- mean(indicador25())
+    ds <- sd(indicador25())
+    zscore <- (indicador25() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador26 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I26, input$B2I26, input$B3I26, input$B4I26,
+                                       input$B5I26, input$B6I26, input$B7I26, input$B8I26))
+  })
+  
+  zcore26 <- reactive({
+    media <- mean(indicador26())
+    ds <- sd(indicador26())
+    zscore <- (indicador26() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador27 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I27, input$B2I27, input$B3I27, input$B4I27,
+                                       input$B5I27, input$B6I27, input$B7I27, input$B8I27))
+  })
+  
+  zcore27 <- reactive({
+    media <- mean(indicador27())
+    ds <- sd(indicador27())
+    zscore <- (indicador27() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador28 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I28, input$B2I28, input$B3I28, input$B4I28,
+                                       input$B5I28, input$B6I28, input$B7I28, input$B8I28))
+  })
+  
+  zcore28 <- reactive({
+    media <- mean(indicador28())
+    ds <- sd(indicador28())
+    zscore <- (indicador28() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador29 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I29, input$B2I29, input$B3I29, input$B4I29,
+                                       input$B5I29, input$B6I29, input$B7I29, input$B8I29))
+  })
+  
+  zcore29 <- reactive({
+    media <- mean(indicador29())
+    ds <- sd(indicador29())
+    zscore <- (indicador29() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador30 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I30, input$B2I30, input$B3I30, input$B4I30,
+                                       input$B5I30, input$B6I30, input$B7I30, input$B8I30))
+  })
+  
+  zcore30 <- reactive({
+    media <- mean(indicador30())
+    ds <- sd(indicador30())
+    zscore <- (indicador30() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador31 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I31, input$B2I31, input$B3I31, input$B4I31,
+                                       input$B5I31, input$B6I31, input$B7I31, input$B8I31))
+  })
+  
+  zcore31 <- reactive({
+    media <- mean(indicador31())
+    ds <- sd(indicador31())
+    zscore <- (indicador31() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador32 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I32, input$B2I32, input$B3I32, input$B4I32,
+                                       input$B5I32, input$B6I32, input$B7I32, input$B8I32))
+  })
+  
+  zcore32 <- reactive({
+    media <- mean(indicador32())
+    ds <- sd(indicador32())
+    zscore <- (indicador32() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador33 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I33, input$B2I33, input$B3I33, input$B4I33,
+                                       input$B5I33, input$B6I33, input$B7I33, input$B8I33))
+  })
+  
+  zcore33 <- reactive({
+    media <- mean(indicador33())
+    ds <- sd(indicador33())
+    zscore <- (indicador33() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador34 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I34, input$B2I34, input$B3I34, input$B4I34,
+                                       input$B5I34, input$B6I34, input$B7I34, input$B8I34))
+  })
+  
+  zcore34 <- reactive({
+    media <- mean(indicador34())
+    ds <- sd(indicador34())
+    zscore <- (indicador34() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador35 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I35, input$B2I35, input$B3I35, input$B4I35,
+                                       input$B5I35, input$B6I35, input$B7I35, input$B8I35))
+  })
+  
+  zcore35 <- reactive({
+    media <- mean(indicador35())
+    ds <- sd(indicador35())
+    zscore <- (indicador35() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  })    
+  
+  indicador36 <- reactive({
+    indicador_numerico <- as.numeric(c(input$B1I36, input$B2I36, input$B3I36, input$B4I36,
+                                       input$B5I36, input$B6I36, input$B7I36, input$B8I36))
+  })
+  
+  zcore36 <- reactive({
+    media <- mean(indicador36())
+    ds <- sd(indicador36())
+    zscore <- (indicador36() - media)/ ds
+    zredondeado <- transform(zscore, method = 'minmax')
+    return(zredondeado)
+  }) 
+  
+  output$barrios<-renderLeaflet({
+    
+    suma1 <- input$ps1+input$ps2+input$ps3+input$ps4+input$ps5+input$ps6+input$ps7+input$ps8 
+    suma2 <- input$pe1+input$pe2+input$pe3+input$pe4+input$pe5+input$pe6+input$pe7+input$pe8+input$pe9+input$pe10
+    suma3 <- input$pa1+input$pa2+input$pa3+input$pa4+input$pa5+input$pa6+input$pa7+input$pa8 
+    suma4 <- input$pf1+input$pf2+input$pf3+input$pf4+input$pf5+input$pf6+input$pf7+input$pf8+input$pf9+input$pf10   
+    suma5 <- input$pd1+input$pd2+input$pd3+input$pd4 
+    
+    if (suma1+suma2+suma3+suma4+suma5 == 5){
+      
+      dszc <- 0
+      dezc <- 0
+      dazc <- 0
+      dfzc <- 0
+      res_zc8 <- 0
+      res_zc17 <- 0
+      res_zc18 <- 0
+      res_zc26 <- 0
+      res_zc35 <- 0
+      res_zc36 <- 0
+      
+      if (input$metodo == 'zcore'){
+        res_zc8 <- 1-zcore8()
+        res_zc17 <- 1-zcore17()
+        res_zc18 <- 1-zcore18()
+        res_zc25 <- 1-zcore25()
+        res_zc26 <- 1-zcore26()
+        res_zc35 <- 1-zcore35()
+        res_zc36 <- 1-zcore36()
+        dszc <- (input$ps1*zcore1())+(input$ps2*zcore2())+(input$ps3*zcore3())+(input$ps4*zcore4())+(input$ps5*zcore5())+(input$ps6*zcore6())+(input$ps7*zcore7())+(input$ps8*res_zc8)
+        dezc <- (input$pe1*zcore9())+(input$pe2*zcore10())+(input$pe3*zcore11())+(input$pe4*zcore12())+(input$pe5*zcore13())+(input$pe6*zcore14())+(input$pe7*zcore15())+(input$pe8*zcore16())+(input$pe9*res_zc17)+(input$pe10*res_zc18)
+        dazc <- (input$pa1*zcore19())+(input$pa2*zcore20())+(input$pa3*zcore21())+(input$pa4*zcore22())+(input$pa5*zcore23())+(input$pa6*zcore24())+(input$pa7*res_zc25)+(input$pa8*res_zc26)
+        dfzc <- (input$pf1*zcore27())+(input$pf2*zcore28())+(input$pf3*zcore29())+(input$pf4*zcore30())+(input$pf5*zcore31())+(input$pf6*zcore32())+(input$pf7*zcore33())+(input$pf8*zcore34())+(input$pf9*res_zc35)+(input$pf10*res_zc36)
+        indicezc <- (input$pd1*dszc)+(input$pd2*dezc)+(input$pd3*dazc)+(input$pd4*dfzc)
+        barrios <- barrios |> 
+          mutate(valorz = indicezc,
+                 valorDS = dszc,
+                 valorDE = dezc,
+                 valorDA = dazc,
+                 valorDF = dfzc)
+        }
+      
+      res_mmt8 <- 0
+      res_mmt17 <- 0
+      res_mmt18 <- 0
+      res_mmt25 <- 0
+      res_mmt26 <- 0
+      res_mmt35 <- 0
+      res_mmt36 <- 0
+
+      mypalette <- colorBin(palette = carto_pal(name = "", n = 8),
+                            domain = barrios$valorz,
+                            bins = c( 1, 0.901, 0.801, 0.701, 0.601, 0.501, 0.401, 0.301, 0.201, 0.101, 0),
+                            right = TRUE
+                            )
+
+        addPolygons(data = barrios, stroke = TRUE, color = "ivory", weight = 3, fillColor = ~mypalette(valorz),
+                    fillOpacity = 1, label = lapply(mytext,HTML), group= "Integrated MultiD Index") |>
+        addPolygons(data = barrios, stroke = TRUE, color = "ivory", weight = 3, fillColor = ~mypalette(valorDS), 
+                    fillOpacity = 1, label = lapply(mytextds,HTML), group = "Social dimension") |>
+        addPolygons(data = barrios, stroke = TRUE, color = "ivory", weight = 3, fillColor = ~mypalette(valorDE), 
+                    fillOpacity = 1, label = lapply(mytextde,HTML), group = "Economic dimension") |>
+        addPolygons(data = barrios, stroke = TRUE, color = "ivory", weight = 3, fillColor = ~mypalette(valorDA), 
+                    fillOpacity = 1, label = lapply(mytextda,HTML), group = "Environmental dimension") |>
+        addPolygons(data = barrios, stroke = TRUE, color = "ivory", weight = 3, fillColor = ~mypalette(valorDF), 
+                    fillOpacity = 1, label = lapply(mytextdf,HTML), group = "Physical dimension") |>         
+        setView(lat = 41.801886, lng = 2.772544, zoom = 11.5) 
+        hideGroup(c("Social dimension", "Economic dimension", "Environmental dimension", "Physical dimension"))
+      }  
+  })
+}
