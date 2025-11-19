@@ -1,0 +1,9 @@
+PAQUETES -----------------------------------------------------------------
+if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman")
+pacman::p_load(
+  sf, classInt, tidyverse, rmapshaper, RColorBrewer,
+  CTT, vegan, dlookr, leaflet, htmlwidgets, shiny,
+  readxl, leaflet.extras, rcartocolor, shinyBS, tableHTML,
+  here,shinyFeedback)
+options(scipen = 999, warn = -1) # variables
+setwd("E:/R_VCS")
