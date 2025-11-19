@@ -1,0 +1,578 @@
+# CONFIGURAR INTERFASE WEB -----------------------------------------------
+ui <- fluidPage(
+  useShinyFeedback(),
+  tags$head(
+    tags$style(HTML("
+                    /* Estils generals */
+                    body {
+                      overflow: hidden;  /* Elimina l'scroll global */
+                      margin: 0;
+                      padding: 0;
+                    }
+                    
+                    /* Contenidor principal */
+                    .container-fluid {
+                      display: flex;
+                      height: 100vh;  /* Ocupa tota l'alçada de la pantalla */
+                    }
+               ),
+    ),
+# Step 1.
+    tabsetPanel(
+      tabPanel("Weights: Dimensions",
+           bsCollapse(id = "PPD", open = NULL,
+                      bsCollapsePanel("Assign weights to each dimension:",
+                                      numericInput("pd1","Social dimension", value = 0.30, min = 0, max = 1, step = 0.01),
+                                      numericInput("pd2","Economic dimension", value = 0.25, min = 0, max = 1, step = 0.01),
+                                      numericInput("pd3","Environmental dimension", value = 0.15, min = 0, max=1, step = 0.01),
+                                      numericInput("pd4","Physical dimension", value = 0.30, min = 0, max= 1, step = 0.01),
+                                      textOutput("sum_warning")
+                                      )
+                      )
+           )
+      ),
+
+# Step 2.
+    tabsetPanel(
+      tabPanel("Social dimension indicators",
+               bsCollapse(id = "CPS", open = NULL,
+                          bsCollapsePanel("Assign",
+                                          numericInput("ps1",paste(i1), value = 0.15, min = 0, max = 1, step = 0.01),
+                                          numericInput("ps2",paste(i2), value = 0.08, min = 0, max = 1, step = 0.01),
+                                          numericInput("ps3",paste(i3), value = 0.07, min = 0, max = 1, step = 0.01),
+                                          numericInput("ps4",paste(i4), value = 0.10, min = 0, max = 1, step = 0.01),
+                                          numericInput("ps5",paste(i5), value = 0.10, min = 0, max = 1, step = 0.01),
+                                          numericInput("ps6",paste(i6), value = 0.10, min = 0, max = 1, step = 0.01),
+                                          numericInput("ps7",paste(i7), value = 0.10, min = 0, max = 1, step = 0.01),
+                                          numericInput("ps8",paste(i8), value = 0.30, min = 0, max = 1, step = 0.01)
+                                          )
+                          )
+               )
+      ),
+
+    tabsetPanel(
+      tabPanel("Economic dimension indicators",
+               bsCollapse(id = "CPE", open = NULL,
+                          bsCollapsePanel("Assign",
+                                          numericInput("pe1",paste(i9), value = 0.05, min = 0, max = 1,step = 0.01),
+                                          numericInput("pe2",paste(i10), value = 0.05, min = 0, max = 1,step = 0.01),
+                                          numericInput("pe3",paste(i11), value = 0.05, min = 0, max = 1,step = 0.01),
+                                          numericInput("pe4",paste(i12), value = 0.10, min = 0, max = 1,step = 0.01),
+                                          numericInput("pe5",paste(i13), value = 0.10, min = 0, max = 1,step = 0.01),
+                                          numericInput("pe6",paste(i14), value = 0.15, min = 0, max = 1,step = 0.01),
+                                          numericInput("pe7",paste(i15), value = 0.10, min = 0, max = 1,step = 0.01),
+                                          numericInput("pe8",paste(i16), value = 0.05, min = 0, max = 1,step = 0.01),
+                                          numericInput("pe9",paste(i17), value = 0.15, min = 0, max = 1,step = 0.01),
+                                          numericInput("pe10",paste(i18), value = 0.20, min = 0, max = 1,step = 0.01)
+                                          )
+                          )
+               )
+      ),
+
+    tabsetPanel(
+      tabPanel("Environmental dimension indicators",
+               bsCollapse(id = "CPA", open = NULL,
+                          bsCollapsePanel("Assign",
+                                          numericInput("pa1",paste(i19), value = 0.08, min = 0, max = 1, step = 0.01),
+                                          numericInput("pa2",paste(i20), value = 0.10, min = 0, max = 1, step = 0.01),
+                                          numericInput("pa3",paste(i21), value = 0.12, min = 0, max = 1, step = 0.01),
+                                          numericInput("pa4",paste(i22), value = 0.16, min = 0, max = 1, step = 0.01),
+                                          numericInput("pa5",paste(i23), value = 0.10, min = 0, max = 1, step = 0.01),
+                                          numericInput("pa6",paste(i24), value = 0.10, min = 0, max = 1, step = 0.01),
+                                          numericInput("pa7",paste(i25), value = 0.17, min = 0, max = 1, step = 0.01),
+                                          numericInput("pa8",paste(i26), value = 0.17, min = 0, max = 1, step = 0.01)
+                                          )
+                          )
+               )
+      ),
+
+    tabsetPanel(
+      tabPanel("Physical dimension indicators",
+               bsCollapse(id = "CPF", open = NULL,
+                          bsCollapsePanel("Assign",
+                                          numericInput("pf1",paste(i27), value = 0.07, min = 0, max = 1,step = 0.01),
+                                          numericInput("pf2",paste(i28), value = 0.07, min = 0, max = 1,step = 0.01),
+                                          numericInput("pf3",paste(i29), value = 0.06, min = 0, max = 1,step = 0.01),
+                                          numericInput("pf4",paste(i30), value = 0.08, min = 0, max = 1,step = 0.01),
+                                          numericInput("pf5",paste(i31), value = 0.08, min = 0, max = 1,step = 0.01),
+                                          numericInput("pf6",paste(i32), value = 0.06, min = 0, max = 1,step = 0.01),
+                                          numericInput("pf7",paste(i33), value = 0.09, min = 0, max = 1,step = 0.01),
+                                          numericInput("pf8",paste(i34), value = 0.09, min = 0, max = 1,step = 0.01),
+                                          numericInput("pf9",paste(i35), value = 0.20, min = 0, max = 1,step = 0.01),
+                                          numericInput("pf10",paste(i36), value = 0.20, min = 0, max = 1,step = 0.01)
+                                          )
+                          )
+               )
+      ),
+
+# Step 3.
+    bsCollapse(id = "B1", open = NULL,
+               bsCollapsePanel("Neighborhood 1. Centralized or historic center",
+                               bsCollapse(id = "DS1", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B1I1",i1, min = 6500,max = 40000, value = 10617.65),
+                                                          sliderInput("B1I2",i2, min = 20,max = 40.00, value = 39.11),
+                                                          sliderInput("B1I3",i3, min = 29.00,max = 55.00, value = 47.89),
+                                                          sliderInput("B1I4",i4, min = 12.94,max = 35.00, value = 22.52),
+                                                          sliderInput("B1I5",i5, min = 2.00,max = 14.12, value = 6.15),
+                                                          sliderInput("B1I6",i6, min = 9.00,max = 18.65, value = 4.80),
+                                                          sliderInput("B1I7",i7, min = 0.00,max = 20.00, value = 6.43),
+                                                          sliderInput("B1I8",i8, min = 0.00,max = 800.00, value = 235.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DE1", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B1I9",i9, min = 150.00, max = 4000.00, value = 2544.12),
+                                                          sliderInput("B1I10",i10, min = 100.00, max = 2000.00, value = 1485.29),
+                                                          sliderInput("B1I11",i11, min = 50.00, max = 1500, value = 888.24),
+                                                          sliderInput("B1I12",i12, min = 5000, max = 30000, value = 15312),
+                                                          sliderInput("B1I13",i13, min = 40.00, max = 90.00, value = 79.67),
+                                                          sliderInput("B1I14",i14, min = 1, max = 5, value = 2),
+                                                          sliderInput("B1I15",i15, min = 0.00, max = 10.00, value = 0.83),
+                                                          sliderInput("B1I16",i16, min = 987.00, max = 6000.00, value = 4850),
+                                                          sliderInput("B1I17",i17, min = 55.00, max = 100.00, value = 81.62),
+                                                          sliderInput("B1I18",i18, min = 12000.00, max = 90000000.00, value = 8306270.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DA1", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B1I19",i19, min = 10.00,max = 60.00, value = 14.27),
+                                                          sliderInput("B1I20",i20, min = 1,max = 500, value = 78),
+                                                          sliderInput("B1I21",i21, min = 10.00,max = 50.00, value = 14.22),
+                                                          sliderInput("B1I22",i22, min = 0.12,max = 2000.00, value = 116.19),
+                                                          sliderInput("B1I23",i23, min = 1.00,max = 2000.00, value = 259.00),
+                                                          sliderInput("B1I24",i24, min =1,max = 40, value = 1),
+                                                          sliderInput("B1I25",i25, min = 0,max = 195.00, value = 0.4),
+                                                          sliderInput("B1I26",i26, min = 0,max = 500, value = 52.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DF1", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B1I27",i27, min = 1.00,max = 5000.00, value = 3000.00),
+                                                          sliderInput("B1I28",i28, min = 1.00,max = 25000.00, value = 1500.00),
+                                                          sliderInput("B1I29",i29, min = 8.33,max = 11.67, value = 10.00),
+                                                          sliderInput("B1I30",i30, min = 21.00,max = 150.00, value = 108.82),
+                                                          sliderInput("B1I31",i31, min = 1,max = 5, value = 2),
+                                                          sliderInput("B1I32",i32, min = 1.00,max = 100.00, value = 64.00),
+                                                          sliderInput("B1I33",i33, min = 1,max = 2000, value = 8),
+                                                          sliderInput("B1I34",i34, min = 2.00,max = 100.00, value = 77.00),
+                                                          sliderInput("B1I35",i35, min = 1,max = 150, value = 32.35),
+                                                          sliderInput("B1I36",i36, min = 1,max = 1500, value = 503)
+                                                          )
+                                          )
+                               )
+               ),
+
+    bsCollapse(id = "B2", open = NULL,
+               bsCollapsePanel("Neighborhood 2. First metropolitan ring: Residential focus and green areas)",
+                               bsCollapse(id = "DS2", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B2I1",i1, min = 2000.00,max = 25000.00, value = 6844.00),
+                                                          sliderInput("B2I2",i2, min = 15.00,max = 41.43, value = 28.02),
+                                                          sliderInput("B2I3",i3, min = 28.00,max = 53.00, value = 52.78),
+                                                          sliderInput("B2I4",i4, min = 12.86,max = 40.00, value = 34.07),
+                                                          sliderInput("B2I5",i5, min = 2.00,max = 15.00, value = 14.50),
+                                                          sliderInput("B2I6",i6, min = 9.00,max = 30.00, value = 11.00),
+                                                          sliderInput("B2I7",i7, min = 0.00,max = 44.00, value = 9.29),
+                                                          sliderInput("B2I8",i8, min = 0,max = 800, value = 10)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DE2", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B2I9",i9, min = 80.00,max = 2000.00, value = 330.00),
+                                                          sliderInput("B2I10",i10, min =100.00,max = 1500.00, value = 220.00),
+                                                          sliderInput("B2I11",i11, min =10.00,max = 760.00, value = 76.00),
+                                                          sliderInput("B2I12",i12, min = 5000.00,max = 30000.00, value = 15191.00),
+                                                          sliderInput("B2I13",i13, min = 40.00,max = 90.00, value = 54.97),
+                                                          sliderInput("B2I14",i14, min = 1,max = 5, value = 2),
+                                                          sliderInput("B2I15",i15, min = 2.00,max = 30.00, value = 2.00),
+                                                          sliderInput("B2I16",i16, min = 1800,max = 4000, value = 3202.00),
+                                                          sliderInput("B2I17",i17, min = 0.00,max = 100.00, value = 80.53),
+                                                          sliderInput("B2I18",i18, min = 12000,max = 90000000.00, value = 7798280.47)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DA2", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B2I19",i19, min = 52.00,max = 80.00, value = 50.62),
+                                                          sliderInput("B2I20",i20, min = 1,max = 500, value = 60),
+                                                          sliderInput("B2I21",i21, min = 10.00,max = 120.00, value = 50.62),
+                                                          sliderInput("B2I22",i22, min = 0.14,max = 1500.00, value = 37.11),
+                                                          sliderInput("B2I23",i23, min = 1.00,max = 1500.00, value = 60.00),
+                                                          sliderInput("B2I24",i24, min = 0,max = 40, value = 3),
+                                                          sliderInput("B2I25",i25, min = 0.00,max = 195.00, value = 0.00),
+                                                          sliderInput("B2I26",i26, min = 0,max = 500, value = 26.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DF2", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B2I27",i27, min = 1.00,max = 4000.00,value = 1500.00),
+                                                          sliderInput("B2I28",i28, min = 1.00,max = 25000.00,value = 15000.00),
+                                                          sliderInput("B2I29",i29, min = 10.00,max = 15.00,value = 12.00),
+                                                          sliderInput("B2I30",i30, min = 21.00,max = 250.00,value = 116.00),
+                                                          sliderInput("B2I31",i31, min = 1,max = 5,value = 4),
+                                                          sliderInput("B2I32",i32, min = 0.00,max = 50.00,value = 10.00),
+                                                          sliderInput("B2I33",i33, min = 1,max = 2000,value = 1500),
+                                                          sliderInput("B2I34",i34, min = 2.00,max = 100.00,value = 16.07),
+                                                          sliderInput("B2I35",i35, min = 1,max = 150,value = 14),
+                                                          sliderInput("B2I36",i36, min = 1,max = 1500,value = 225)
+                                                          )
+                                          )
+                               )
+               ),
+
+    bsCollapse(id = "B3", open = NULL,
+               bsCollapsePanel("Neighborhood 3. First metropolitan ring: Mixed approach with commercial emphasis",
+                               bsCollapse(id = "DS3", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B3I1",i1, min = 4000.00,max = 40000.00,value = 13340.00),
+                                                          sliderInput("B3I2",i2, min = 20.00,max = 48.70,value = 22.64),
+                                                          sliderInput("B3I3",i3, min = 25.00,max = 60.00,value = 54.05),
+                                                          sliderInput("B3I4",i4, min = 9.00,max = 38.00,value = 35.79),
+                                                          sliderInput("B3I5",i5, min = 1.00,max = 33.00,value = 30.29),
+                                                          sliderInput("B3I6",i6, min = 2.00,max = 30.00,value = 6.20),
+                                                          sliderInput("B3I7",i7, min = 0.00,max = 44.00,value = 4.00),
+                                                          sliderInput("B3I8",i8, min = 0,max = 800,value = 225)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DE3", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B3I9",i9, min = 150.00,max = 4000.00,value = 3470.00),
+                                                          sliderInput("B3I10",i10, min = 300.00,max = 2000.00,value = 1935.00),
+                                                          sliderInput("B3I11",i11, min =100.00,max = 2000.00,value = 1310.00),
+                                                          sliderInput("B3I12",i12, min = 5000.00,max = 30000.00,value = 20567.33),
+                                                          sliderInput("B3I13",i13, min = 40.00,max = 90.00,value = 61.47),
+                                                          sliderInput("B3I14",i14, min = 1,max = 5,value = 3),
+                                                          sliderInput("B3I15",i15, min = 5.00,max = 30.00,value = 25.00),
+                                                          sliderInput("B3I16",i16, min = 1800,max = 4000,value = 3750),
+                                                          sliderInput("B3I17",i17, min = 55.00,max = 100.00,value = 79.31),
+                                                          sliderInput("B3I18",i18, min = 12000.00,max = 900000.00,value = 687414.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DA3", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B3I19",i19, min =18.00,max = 50.00,value = 11.02),
+                                                          sliderInput("B3I20",i20, min = 1,max = 500,value = 31),
+                                                          sliderInput("B3I21",i21, min = 10.00,max = 100.00,value = 11.00),
+                                                          sliderInput("B3I22",i22, min = 0.10,max = 3000.00,value = 486.25),
+                                                          sliderInput("B3I23",i23, min = 1.00,max = 3000.00,value = 139.30),
+                                                          sliderInput("B3I24",i24, min = 1,max = 40,value = 5),
+                                                          sliderInput("B3I25",i25, min = 0.00,max = 195.00,value = 0.00),
+                                                          sliderInput("B3I26",i26, min = 0,max = 500,value = 66.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DF3", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B3I27",i27, min = 1.00,max = 5000.00,value = 2500.00),
+                                                          sliderInput("B3I28",i28, min = 1.00,max = 50000.00,value = 30000.00),
+                                                          sliderInput("B3I29",i29, min = 10.00,max = 15.00,value = 12.00),
+                                                          sliderInput("B3I30",i30, min = 21.00,max = 500.00,value = 260.00),
+                                                          sliderInput("B3I31",i31, min = 1,max = 5,value = 2),
+                                                          sliderInput("B3I32",i32, min = 1.00,max = 50.00,value = 19.00),
+                                                          sliderInput("B3I33",i33, min = 1,max = 2000,value = 88),
+                                                          sliderInput("B3I34",i24, min = 2.00,max = 100.00,value = 40.57),
+                                                          sliderInput("B3I35",i35, min = 1,max = 150,value = 30),
+                                                          sliderInput("B3I36",i36, min = 1,max = 1500,value = 599)
+                                                          )
+                                          )
+                               )
+               ),
+
+    bsCollapse(id = "B4", open = NULL,
+               bsCollapsePanel("Neighborhood 4. Second metropolitan ring: Residential urban with a commercial focus",
+                               bsCollapse(id = "DS4", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B4I1",i1, min = 3000.00,max = 40000.00,value = 16298.00),
+                                                          sliderInput("B4I2",i2, min = 15.00,max = 48.70,value = 28.17),
+                                                          sliderInput("B4I3",i3, min = 30.00,max = 60.00,value = 52.20),
+                                                          sliderInput("B4I4",i4, min = 13.33,max = 38.00,value = 31.49),
+                                                          sliderInput("B4I5",i5, min = 1.00,max = 15.00,value = 6.12),
+                                                          sliderInput("B4I6",i6, min = 3.00,max = 30.00,value = 5.80),
+                                                          sliderInput("B4I7",i7, min = 0.00,max = 44.00,value = 8.85),
+                                                          sliderInput("B4I8",i8, min =0,max = 800,value = 255)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DE4", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B4I9",i9, min = 150.00,max = 2000.00,value = 594.20),
+                                                          sliderInput("B4I10",i10, min = 100.00,max = 2000.00,value = 316.67),
+                                                          sliderInput("B4I11",i11, min = 100.00,max = 2000.00,value = 200.00),
+                                                          sliderInput("B4I12",i12, min = 5000,max = 30000,value = 16384.18),
+                                                          sliderInput("B4I13",i13, min = 40.00,max = 90.00,value = 62.71),
+                                                          sliderInput("B4I14",i14, min = 1,max = 5,value = 3),
+                                                          sliderInput("B4I15",i15, min = 10.00,max = 30.00,value = 3.62),
+                                                          sliderInput("B4I16",i16, min = 1000,max = 4000,value = 2630),
+                                                          sliderInput("B4I17",i17, min = 55.00,max = 100.00,value = 79.68),
+                                                          sliderInput("B4I18",i18, min = 12000,max = 90000000.00,value = 3283490)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DA4", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B4I19",i19, min = 24.00,max = 120.00,value = 9.72),
+                                                          sliderInput("B4I20",i20, min = 1,max = 500,value = 93),
+                                                          sliderInput("B4I21",i21, min = 10.00,max = 150.00,value = 9.72),
+                                                          sliderInput("B4I22",i22, min = 0.07,max = 3000.00,value = 79.29),
+                                                          sliderInput("B4I23",i23, min = 1.00,max = 3000.00,value = 65.00),
+                                                          sliderInput("B4I24",i24, min =1,max = 40,value = 2),
+                                                          sliderInput("B4I25",i25, min = 0.00,max = 195.00,value = 0.00),
+                                                          sliderInput("B4I26",i26, min = 0,max = 500,value = 22)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DF4", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B4I27",i27, min = 1.00,max = 5000.00,value = 1331.16),
+                                                          sliderInput("B4I28",i28, min = 1.00,max = 50000.00,value = 25000.00),
+                                                          sliderInput("B4I29",i29, min = 13.75,max = 17.50,value = 15.00),
+                                                          sliderInput("B4I30",i30, min = 21.00,max = 500.00,value = 350.00),
+                                                          sliderInput("B4I31",i31, min = 1,max = 5,value = 4),
+                                                          sliderInput("B4I32",i32, min = 1.00,max = 25.00,value = 9.00),
+                                                          sliderInput("B4I33",i33, min = 1,max = 2000,value = 14000),
+                                                          sliderInput("B4I34",i34, min = 2.00,max = 100.00,value = 62.50),
+                                                          sliderInput("B4I35",i35, min = 1,max = 150,value = 11.62),
+                                                          sliderInput("B4I36",i36, min = 1,max = 1500,value = 210)
+                                                          )
+                                          )
+                               )
+               ),
+
+    bsCollapse(id = "B5", open = NULL,
+               bsCollapsePanel("Neighborhood 5. Second metropolitan ring: Urban residential",
+                               bsCollapse(id = "DS5", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B5I1",i1, min = 1500.00,max = 20000.00,value = 3120.25),
+                                                          sliderInput("B5I2",i2, min = 10.00,max = 40.00,value = 16.75),
+                                                          sliderInput("B5I3",i3, min = 27.00,max = 55.00,value = 51.72),
+                                                          sliderInput("B5I4",i4, min = 25.00,max = 40.00,value = 36.63),
+                                                          sliderInput("B5I5",i5, min = 2.50,max = 15.00,value = 3.12),
+                                                          sliderInput("B5I6",i6, min = 5.00,max = 30.00,value = 6.70),
+                                                          sliderInput("B5I7",i7, min = 0.00,max = 40.00,value = 15.98),
+                                                          sliderInput("B5I8",i8, min =0,max = 800,value = 33)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DE5", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B5I9",i9, min = 80.00,max = 1500.00,value = 110.13),
+                                                          sliderInput("B5I10",i10, min =25.00,max = 150.00,value = 48.10),
+                                                          sliderInput("B5I11",i11, min =10.00,max = 100.00,value = 41.77),
+                                                          sliderInput("B5I12",i12, min = 5000,max = 30000,value = 13859.50),
+                                                          sliderInput("B5I13",i13, min = 40.00,max = 90.00,value = 56.71),
+                                                          sliderInput("B5I14",i14, min = 1,max = 5,value = 1),
+                                                          sliderInput("B5I15",i15, min = 2.00,max = 20.00,value = 5.06),
+                                                          sliderInput("B5I16",i16, min = 1000,max = 4000,value = 2244),
+                                                          sliderInput("B5I17",i17, min = 55.00,max = 100.00,value = 67.43),
+                                                          sliderInput("B5I18",i18, min = 12000.00,max = 90000000.00,value = 1545280.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DA5", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B5I19",i19, min = 67.50,max = 195.00,value = 114.97),
+                                                          sliderInput("B5I20",i20, min = 1,max = 500,value = 56),
+                                                          sliderInput("B5I21",i21, min = 0.25,max = 100.00,value = 96.31),
+                                                          sliderInput("B5I22",i22, min = 0.25,max = 200.00,value = 67.76),
+                                                          sliderInput("B5I23",i23, min = 1.00,max = 425.00,value = 82.00),
+                                                          sliderInput("B5I24",i24, min = 1,max = 40,value = 25),
+                                                          sliderInput("B5I25",i25, min = 0.00,max = 195.00,value = 18.66),
+                                                          sliderInput("B5I26",i26, min = 1,max = 500,value = 13.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DF5", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B5I27",i27, min = 1.00,max = 1250.00,value = 445.57),
+                                                          sliderInput("B5I28",i28, min = 1.00,max = 20000.00,value = 445.57),
+                                                          sliderInput("B5I29",i29, min = 7.00,max = 10.00,value = 8.00),
+                                                          sliderInput("B5I30",i30, min = 21.00,max = 150.00,value = 63.29),
+                                                          sliderInput("B5I31",i31, min = 1,max = 5,value = 4),
+                                                          sliderInput("B5I32",i32, min = 1.00,max = 25.00,value = 6.00),
+                                                          sliderInput("B5I33",i33, min = 1,max = 2000,value = 800),
+                                                          sliderInput("B5I34",i34, min = 2.00,max = 100.00,value = 10.26),
+                                                          sliderInput("B5I35",i35, min = 1,max = 150,value = 5),
+                                                          sliderInput("B5I36",i36, min = 1,max = 1500,value = 146)
+                                                          )
+                                          )
+                               )
+               ),
+
+    bsCollapse(id = "B6", open = NULL,
+               bsCollapsePanel("Neighborhood 6. Peri-urban residential",
+                               bsCollapse(id = "DS6", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B6I1",i1, min = 550.00,max = 20000.00,value = 2409.82),
+                                                          sliderInput("B6I2",i2, min = 15.13,max = 31.25,value = 9.89),
+                                                          sliderInput("B6I3",i3, min = 39.47,max = 60.00,value = 51.80),
+                                                          sliderInput("B6I4",i4, min = 32.89,max = 40.00,value = 34.27),
+                                                          sliderInput("B6I5",i5, min = 3.00,max = 15.00,value = 14.40),
+                                                          sliderInput("B6I6",i6, min = 1.50,max = 20.00,value = 6.27),
+                                                          sliderInput("B6I7",i7, min = 0.00,max = 30.00,value = 4.48),
+                                                          sliderInput("B6I8",i8, min =0,max = 800,value = 20)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DE6", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B6I9",i9, min = 10.00,max = 1000.00,value = 29.46),
+                                                          sliderInput("B6I10",i10, min =10.00,max = 104.17,value = 18.75),
+                                                          sliderInput("B6I11",i11, min =10.00,max = 300.00,value = 5.36),
+                                                          sliderInput("B6I12",i12, min = 5000,max = 30000,value = 22000.20),
+                                                          sliderInput("B6I13",i13, min = 40.00,max = 90.00,value = 59.50),
+                                                          sliderInput("B6I14",i14, min = 1,max = 5,value = 1),
+                                                          sliderInput("B6I15",i15, min = 0.00,max = 15.00,value = 2.08),
+                                                          sliderInput("B6I16",i16, min = 1800,max = 6000,value = 2527.00),
+                                                          sliderInput("B6I17",i17, min = 55.00,max = 100.00,value = 75.70),
+                                                          sliderInput("B6I18",i18, min = 12000.00,max = 90000000.00,value = 5802070.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DA6", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B6I19",i19, min = 80.00,max = 195.00,value = 133.36),
+                                                          sliderInput("B6I20",i20, min = 1,max = 500,value = 42),
+                                                          sliderInput("B6I21",i21, min = 10.00,max = 195.00,value = 118.96),
+                                                          sliderInput("B6I22",i22, min = 1.50,max = 200.00,value = 40.44),
+                                                          sliderInput("B6I23",i23, min = 1.00,max = 400.47,value = 189.01),
+                                                          sliderInput("B6I24",i24, min = 1,max = 40,value = 33),
+                                                          sliderInput("B6I25",i25, min = 0.00,max = 195.00,value = 118.18),
+                                                          sliderInput("B6I26",i26, min = 1,max = 500,value = 30)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DF6", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B6I27",i27, min = 1.00,max = 1000.00,value = 665.18),
+                                                          sliderInput("B6I28",i28, min = 1.00,max = 20000,value = 1074.00),
+                                                          sliderInput("B6I29",i29, min = 8.33,max = 11.46,value = 10.00),
+                                                          sliderInput("B6I30",i30, min = 21.00,max = 100.00,value = 50.00),
+                                                          sliderInput("B6I31",i31, min = 1,max = 5,value = 2),
+                                                          sliderInput("B6I32",i32, min = 1.00,max = 10.00,value = 2),
+                                                          sliderInput("B6I33",i33, min = 1,max = 2000,value = 6),
+                                                          sliderInput("B6I34",i34, min = 2.00,max = 100.00,value = 66.90),
+                                                          sliderInput("B6I35",i35, min = 1,max = 150,value = 1),
+                                                          sliderInput("B6I36",i36, min = 1,max = 1500,value = 104)
+                                                          )
+                                          )
+                               )
+               ),
+
+    bsCollapse(id = "B7", open = NULL,
+               bsCollapsePanel("Neighborhood 7. Industrial and commercial peripheral",
+                               bsCollapse(id = "DS7", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B7I1",i1, min = 15.00,max = 1500.00,value = 15.00),
+                                                          sliderInput("B7I2",i2, min = 20.00,max = 48.70,value = 22.22),
+                                                          sliderInput("B7I3",i3, min = 27.00,max = 55.00,value = 50.00),
+                                                          sliderInput("B7I4",i4, min = 4.90,max = 35.00,value = 22.22),
+                                                          sliderInput("B7I5",i5, min = 1.00,max = 14.00,value = 9.16),
+                                                          sliderInput("B7I6",i6, min = 1.5,max = 20.00,value = 6.50),
+                                                          sliderInput("B7I7",i7, min = 0.01,max = 30.00,value = 22.22),
+                                                          sliderInput("B7I8",i8, min =0,max = 800,value = 2)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DE7", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B7I9",i9, min = 100.00,max = 700.00,value = 184.17),
+                                                          sliderInput("B7I10",i10, min = 100.00,max = 164.29,value = 103.33),
+                                                          sliderInput("B7I11",i11, min = 10.00,max = 150.00,value = 40.83),
+                                                          sliderInput("B7I12",i12, min = 5000,max = 30000,value = 11792),
+                                                          sliderInput("B7I13",i13, min = 40.00,max = 90.00,value = 88.89),
+                                                          sliderInput("B7I14",i14, min = 1,max = 5,value = 3),
+                                                          sliderInput("B7I15",i15, min = 0.00,max = 30.00,value = 7.14),
+                                                          sliderInput("B7I16",i16, min = 1000,max = 4000,value = 1605),
+                                                          sliderInput("B7I17",i17, min = 55.00,max = 100.00,value = 60.00),
+                                                          sliderInput("B7I18",i18, min = 12000,max = 90000000.00,value = 1246070.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DA7", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B7I19",i19, min = 10.00,max = 150.00,value = 100.00),
+                                                          sliderInput("B7I20",i20, min = 1,max = 500,value = 35),
+                                                          sliderInput("B7I21",i21, min = 10.00,max = 195.00,value = 15.00),
+                                                          sliderInput("B7I22",i22, min = 1.5,max = 3000.0,value = 1800.00),
+                                                          sliderInput("B7I23",i23, min = 1.00,max = 3000.00,value = 1000.00),
+                                                          sliderInput("B7I24",i24, min = 1,max = 40,value = 1),
+                                                          sliderInput("B7I25",i25, min = 0.00,max = 195.00,value = 90.13),
+                                                          sliderInput("B7I26",i26, min = 1,max = 500,value = 10.00)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DF7", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B7I27",i27, min = 1.00,max = 5000.00,value = 4000.00),
+                                                          sliderInput("B7I28",i28, min = 1.00,max = 50000.00,value = 20000.00),
+                                                          sliderInput("B7I29",i29, min = 14.29,max = 17.86,value = 15.00),
+                                                          sliderInput("B7I30",i30, min = 21.00,max = 150.00,value = 35.83),
+                                                          sliderInput("B7I31",i31, min = 1,max = 5,value = 1),
+                                                          sliderInput("B7I32",i32, min = 1.00,max = 10.00,value = 1.00),
+                                                          sliderInput("B7I33",i33, min = 1,max = 2000,value = 6),
+                                                          sliderInput("B7I34",i34, min = 2.00,max = 100.00,value = 55.30),
+                                                          sliderInput("B7I35",i35, min = 1,max = 150,value = 8),
+                                                          sliderInput("B7I36",i36, min = 1,max = 1500,value = 555)
+                                                          )
+                                          )
+                               )
+               ),
+
+    bsCollapse(id = "B8", open = NULL,
+               bsCollapsePanel("Neighborhood 8. Informal or marginal",
+                               bsCollapse(id = "DS8", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B8I1",i1, min = 800.00,max = 30000.00,value = 2941.82),
+                                                          sliderInput("B8I2",i2, min = 18.00,max = 48.70,value = 22.00),
+                                                          sliderInput("B8I3",i3, min = 27.00,max = 60.00,value = 51.92),
+                                                          sliderInput("B8I4",i4, min = 0.69,max = 40.00,value = 39.62),
+                                                          sliderInput("B8I5",i5, min = 1.00,max = 15.00,value = 6.00),
+                                                          sliderInput("B8I6",i6, min = 15.00,max = 30.00,value = 25.00),
+                                                          sliderInput("B8I7",i7, min = 0.01,max = 44.00,value = 26.14),
+                                                          sliderInput("B8I8",i8, min = 0,max = 800,value = 1)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DE8", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B8I9",i9, min = 10.00,max = 2000.00,value = 60.00),
+                                                          sliderInput("B8I10",i10, min = 10.00,max = 166.67,value = 21.82),
+                                                          sliderInput("B8I11",i11, min = 10.00,max = 200.00,value = 20.00),
+                                                          sliderInput("B8I12",i12, min = 5000,max = 30000,value = 7629),
+                                                          sliderInput("B8I13",i13, min = 40.00,max = 90.00,value = 55.69),
+                                                          sliderInput("B8I14",i14, min = 1,max = 5,value = 5),
+                                                          sliderInput("B8I15",i15, min = 0.00,max = 15.00,value = 3.64),
+                                                          sliderInput("B8I16",i16, min = 987.00,max = 2000,value = 987),
+                                                          sliderInput("B8I17",i17, min = 55.00,max = 100.00,value = 50.97),
+                                                          sliderInput("B8I18",i18, min = 12000.00,max = 90000000.00,value = 13000)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DA8", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B8I19",i19, min = 10.00,max = 195.00,value = 100.00),
+                                                          sliderInput("B8I20",i20, min = 1,max = 500,value = 37),
+                                                          sliderInput("B8I21",i21, min = 10.00,max = 195.00,value = 27.23),
+                                                          sliderInput("B8I22",i22, min = 1.50,max = 1000.00,value = 33.83),
+                                                          sliderInput("B8I23",i23, min = 0.69,max = 763.89,value = 100.06),
+                                                          sliderInput("B8I24",i24, min = 1,max = 40,value = 7),
+                                                          sliderInput("B8I25",i25, min = 0,max = 195.00,value = 150.00),
+                                                          sliderInput("B8I26",i26, min = 1,max = 500,value = 16)
+                                                          )
+                                          ),
+                               bsCollapse(id = "DF8", open = NULL,
+                                          bsCollapsePanel("Modify",
+                                                          sliderInput("B8I27",i27, min = 1.00,max = 5000.00, value = 741.82),
+                                                          sliderInput("B8I28",i28, min = 1.00,max = 25000.00, value = 2000.00),
+                                                          sliderInput("B8I29",i29, min = 4.17,max = 5.83, value = 5.00),
+                                                          sliderInput("B8I30",i30, min = 21.00,max = 150.00, value = 21.00),
+                                                          sliderInput("B8I31",i31, min = 1,max = 5, value = 5),
+                                                          sliderInput("B8I32",i32, min = 1.00,max = 10.00, value = 1.00),
+                                                          sliderInput("B8I33",i33, min = 1,max = 2000, value = 1),
+                                                          sliderInput("B8I34",i34, min = 2.00,max = 100.00, value = 36.08),
+                                                          sliderInput("B8I35",i35, min = 1,max = 5000, value = 9),
+                                                          sliderInput("B8I36",i36, min = 1,max = 2000, value = 12)
+                                                          )
+                                          )
+                               )
+               ),
+            
+    hr(),
+
+# Step 4.
+    hr(style = "height: 1px; background-color: #707070"),
+    tags$div(style = "font-weight: bold;font-size: 16px;", "Step 4."),
+    hr(),
+    )
+    ),
+      
+    mainPanel(
+      width = 12,
+      )
+)
+
