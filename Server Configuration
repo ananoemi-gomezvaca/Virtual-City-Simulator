@@ -12,21 +12,6 @@ server <- function(input, output, session) {
       )
     })
   })
-    
-  check_and_feedback <- function(prefix, count, tol = 1e-6) {
-    ids <- paste0(prefix, 1:count)
-    values <- sapply(ids, function(id) input[[id]])
-    sum_weights <- sum(values, na.rm = TRUE)
-    valid <- abs(sum_weights - 1) < tol
-    
-    lapply(ids, function(id) {
-      feedbackWarning(
-        inputId = id,
-        show = !valid,
-        text = sprintf("total1 (currently: %.2f)", sum_weights)
-      )
-    })
-  }
   
   observe({ check_and_feedback("ps", 8) })  
   observe({ check_and_feedback("pe", 10) }) 
@@ -519,12 +504,6 @@ server <- function(input, output, session) {
       dezc <- 0
       dazc <- 0
       dfzc <- 0
-      res_zc8 <- 0
-      res_zc17 <- 0
-      res_zc18 <- 0
-      res_zc26 <- 0
-      res_zc35 <- 0
-      res_zc36 <- 0
       
       if (input$metodo == 'zcore'){
         res_zc8 <- 1-zcore8()
