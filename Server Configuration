@@ -13,11 +13,6 @@ server <- function(input, output, session) {
     })
   })
   
-  observe({ check_and_feedback("ps", 8) })  
-  observe({ check_and_feedback("pe", 10) }) 
-  observe({ check_and_feedback("pa", 8) })  
-  observe({ check_and_feedback("pf", 10) }) 
-  
   indicador1 <- reactive({
     indicador_numerico <- as.numeric(c(input$B1I1, input$B2I1, input$B3I1, input$B4I1,
                                        input$B5I1, input$B6I1, input$B7I1, input$B8I1))
@@ -535,7 +530,6 @@ server <- function(input, output, session) {
       res_mmt36 <- 0
 
       mypalette <- colorBin(palette = carto_pal(name = "", n = 8),
-                            domain = barrios$valorz,
                             bins = c( 1, 0.901, 0.801, 0.701, 0.601, 0.501, 0.401, 0.301, 0.201, 0.101, 0),
                             right = TRUE
                             )
