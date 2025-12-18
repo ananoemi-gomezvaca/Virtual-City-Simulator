@@ -3,13 +3,6 @@ ui <- fluidPage(
   useShinyFeedback(),
   tags$head(
     tags$style(HTML("
-                    /* Estils generals */
-                    body {
-                      overflow: hidden;  /* Elimina l'scroll global */
-                      margin: 0;
-                      padding: 0;
-                    }
-                    
                     /* Contenidor principal */
                     .container-fluid {
                       display: flex;
@@ -568,9 +561,6 @@ ui <- fluidPage(
     hr(style = "height: 1px; background-color: #707070"),
     tags$div(style = "font-weight: bold;font-size: 16px;", "Step 4."),
     hr(),
-    )
-    ),
-      
     mainPanel(
       width = 12,
       )
